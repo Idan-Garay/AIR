@@ -34,17 +34,17 @@ public class AIR extends javax.swing.JFrame {
         TextPane.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                at.getFile().changed = true;
+                at.getFile().setChanged(true);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                at.getFile().changed = true;
+                at.getFile().setChanged(true);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                at.getFile().changed = true;
+                at.getFile().setChanged(true);
             }
         });
     }
@@ -64,17 +64,17 @@ public class AIR extends javax.swing.JFrame {
         TextPane.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                at.getFile().changed = true;
+                at.getFile().setChanged(true);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                at.getFile().changed = true;
+                at.getFile().setChanged(true);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                at.getFile().changed = true;
+                at.getFile().setChanged(true);
             }
         });
     }

@@ -26,9 +26,9 @@ import javax.swing.text.StyledDocument;
  * @author idan
  */
 public class AIR_File {
-    String fileName;
-    String directory;
-    boolean changed = false;
+    private String fileName;
+    private String directory;
+    private boolean changed = false;
     
     public AIR_File(){
     }
@@ -175,5 +175,30 @@ public class AIR_File {
             Logger.getLogger(AIR_File.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(String directory) {
+        this.directory = directory;
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
+    }
+    
     
 }
