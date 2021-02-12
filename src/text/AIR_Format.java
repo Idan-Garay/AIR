@@ -7,6 +7,7 @@ package text;
 
 import java.awt.Color;
 import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
@@ -74,17 +75,19 @@ public class AIR_Format {
         StyledDocument doc = (StyledDocument) tp.getDocument();
         Style style = doc.getStyle(format);
         MutableAttributeSet set = new SimpleAttributeSet();
+        AttributeSet attr = tp.getCharacterAttributes();
         
         switch (format) {
-            case "bold": StyleConstants.setBold(set, !StyleConstants.isBold(set));
+            case "bold": StyleConstants.setBold(set, !StyleConstants.isBold(attr));
                 break;
-            case "italicize": StyleConstants.setItalic(set, !StyleConstants.isItalic(set));
+            case "italicize": StyleConstants.setItalic(set, !StyleConstants.isItalic(attr));
                 break;
-            case "underline":StyleConstants.setUnderline(set, !StyleConstants.isUnderline(set));
+            case "underline":StyleConstants.setUnderline(set, !StyleConstants.isUnderline(attr));
                 break;
             default:set.addAttributes(style);
                 break;
         }
+    
         setAttribute(tp, type, set);
     }
     
