@@ -5,8 +5,6 @@
  */
 package text; 
 
-import javax.swing.JTextPane;
-
 
 /**
  *

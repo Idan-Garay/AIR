@@ -28,6 +28,7 @@ import javax.swing.text.StyledDocument;
 public class AIR_File {
     String fileName;
     String directory;
+    boolean changed = false;
     
     public AIR_File(){
     }
@@ -83,7 +84,6 @@ public class AIR_File {
     
     public void newFile(AIR air) {
         try {
-            
             Document doc = (StyledDocument)air.getTextPane().getDocument();
             if (doc.getLength() > 0) {
                 int val = JOptionPane.showConfirmDialog(air, "Do you want to save this document first?");
@@ -116,15 +116,22 @@ public class AIR_File {
     } 
     
     public void open(AIR air) {
+        if (this.changed == true) {
+            this.changed = false;
+            int val = JOptionPane.showConfirmDialog(air, "Do you want to save the changes?");
+                
+            if (val == JOptionPane.YES_OPTION)
+                this.save(air);
+        }
+        
         File f = FileSelection(air);
         try(FileInputStream fis = new FileInputStream(f)) {  
             Document doc = (StyledDocument) air.getTextPane().getDocument();
             doc.remove(0, doc.getLength());
             air.getTextPane().getEditorKit().read(fis, doc, 0);
-            this.fileName = f.getName();  
+            this.fileName = f.getName(); 
         }catch(Exception e) {
             JOptionPane.showMessageDialog(air, "Error! Could not open file!", "Error", JOptionPane.WARNING_MESSAGE);
-            System.out.println(e);  
         }
     }
     
@@ -156,8 +163,13 @@ public class AIR_File {
         Document doc = (StyledDocument)air.getTextPane().getDocument();
         
         try {
-            if (doc.getText(0, doc.getLength()).strip().length() > 0)
-                this.save(air);
+            if (doc.getText(0, doc.getLength()).strip().length() > 0 || this.changed == true) {
+                int val = JOptionPane.showConfirmDialog(air, "Do you want to save the changes?");
+                
+                if (val == JOptionPane.YES_OPTION)
+                    this.save(air);
+            }
+            this.changed = false;    
             System.exit(0);
         } catch (BadLocationException ex) {
             Logger.getLogger(AIR_File.class.getName()).log(Level.SEVERE, null, ex);

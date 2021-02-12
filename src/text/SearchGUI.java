@@ -141,7 +141,7 @@ public class SearchGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_findNextBtnActionPerformed
 
     private void ReplaceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReplaceBtnActionPerformed
-        this.as.replace(tp, ReplaceInput.getText());
+        this.as.replace(tp, ReplaceInput.getText(), FindInput.getText());
     }//GEN-LAST:event_ReplaceBtnActionPerformed
 
     /**

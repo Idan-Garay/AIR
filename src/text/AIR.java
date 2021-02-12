@@ -6,6 +6,8 @@
 package text;
 
 import java.awt.Color;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.*;
 
 /**
@@ -27,7 +29,24 @@ public class AIR extends javax.swing.JFrame {
         SimpleAttributeSet b = new SimpleAttributeSet();
         StyleConstants.setFontSize(b, 13);
         a.addAttributes(b);
-        TextPane.setCharacterAttributes(a, true);
+        TextPane.setCharacterAttributes(a, false);
+        
+        TextPane.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                at.getFile().changed = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                at.getFile().changed = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                at.getFile().changed = true;
+            }
+        });
     }
     
     public AIR(AIR_Text at) {
@@ -40,7 +59,24 @@ public class AIR extends javax.swing.JFrame {
         SimpleAttributeSet b = new SimpleAttributeSet();
         StyleConstants.setFontSize(b, 13);
         a.addAttributes(b);
-        TextPane.setCharacterAttributes(a, true);
+        TextPane.setCharacterAttributes(a, false);
+        
+        TextPane.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                at.getFile().changed = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                at.getFile().changed = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                at.getFile().changed = true;
+            }
+        });
     }
    
         
@@ -93,6 +129,11 @@ public class AIR extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Text Editor");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jScrollPane2.setViewportView(TextPane);
 
@@ -351,7 +392,9 @@ public class AIR extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -463,6 +506,10 @@ public class AIR extends javax.swing.JFrame {
     private void FileExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileExitActionPerformed
         at.getFile().exit(this);
     }//GEN-LAST:event_FileExitActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        at.getFile().exit(this);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

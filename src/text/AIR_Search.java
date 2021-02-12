@@ -99,7 +99,7 @@ public class AIR_Search extends AIR_highlighter{
         }
     }
     
-    public void replace(JTextComponent tp, String input) {
+    public void replace(JTextComponent tp, String input, String find) {
         Highlighter.Highlight highlights[] = tp.getHighlighter().getHighlights();
         int hLen = highlights.length;
         int start = highlights[hLen-1].getStartOffset();
@@ -112,7 +112,7 @@ public class AIR_Search extends AIR_highlighter{
             if (this.lastMatch >= 0)
                 this.lastMatch--;
         }
-        
+        this.find(tp, find, this.getHighlighter2());
     }
 
     public int getLastMatch() {

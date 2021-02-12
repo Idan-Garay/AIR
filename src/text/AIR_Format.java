@@ -6,9 +6,7 @@
 package text;
 
 import java.awt.Color;
-import javax.swing.Action;
 import javax.swing.JTextPane;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
@@ -93,12 +91,15 @@ public class AIR_Format {
     
     public void setFormat(int size, JTextPane tp) {
         StyledDocument doc = (StyledDocument) tp.getDocument();
-
+        
         MutableAttributeSet set = new SimpleAttributeSet();
         set.addAttributes(tp.getCharacterAttributes());
         StyleConstants.setFontSize(set, size);
         
-        doc.setCharacterAttributes(tp.getSelectionStart(), tp.getSelectionEnd(), set, false);
+        int start = tp.getSelectionStart();
+        int end = tp.getSelectionEnd();
+
+        doc.setCharacterAttributes(start, end-start, set, false);
     }
     
     public void setFormat(Color color, JTextPane tp) {
@@ -110,16 +111,22 @@ public class AIR_Format {
         m.addAttributes(tp.getCharacterAttributes());
 
         StyleConstants.setForeground(m, color);
-        tp.setCharacterAttributes(m, false);
+        int start = tp.getSelectionStart();
+        int end = tp.getSelectionEnd();
 
+        tp.setCharacterAttributes(m, false);
+        doc.setCharacterAttributes(start, end-start, m, false);
     }
     
     public void setAttribute(JTextPane tp, int type, MutableAttributeSet set) {
         StyledDocument doc = (StyledDocument) tp.getDocument();
+        int start = tp.getSelectionStart();
+        int end = tp.getSelectionEnd();
+        
         switch (type) {
-            case 0: doc.setParagraphAttributes(tp.getSelectionStart(), tp.getSelectionEnd(), set, false);
+            case 0: doc.setParagraphAttributes(start, end-start, set, false);
                 break;
-            case 1: doc.setCharacterAttributes(tp.getSelectionStart(), tp.getSelectionEnd(), set, false);
+            case 1: doc.setCharacterAttributes(start, end-start, set, false);
                 break;
         }
     }

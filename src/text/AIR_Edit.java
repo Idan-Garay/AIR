@@ -7,9 +7,6 @@ package text;
 
 import java.awt.Color;
 import javax.swing.event.UndoableEditEvent;
-import javax.swing.event.UndoableEditListener;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 
@@ -27,13 +24,9 @@ public class AIR_Edit implements EditInterface{
     
     public AIR_Edit(AIR gui) {
         this.o = new UndoManager();
-        gui.getTextPane().getDocument().addUndoableEditListener(
-                new UndoableEditListener() {
-                    public void undoableEditHappened(UndoableEditEvent e) {
-                        o.addEdit(e.getEdit());
-                    }
-                });
-        
+        gui.getTextPane().getDocument().addUndoableEditListener((UndoableEditEvent e) -> {
+            o.addEdit(e.getEdit());
+        });
         
         this.as = new AIR_Search(Color.yellow);
     }
