@@ -74,7 +74,6 @@ public class AIR_Format {
         StyledDocument doc = (StyledDocument) tp.getDocument();
         Style style = doc.getStyle(format);
         MutableAttributeSet set = new SimpleAttributeSet();
-        set.addAttributes(tp.getCharacterAttributes());
         
         switch (format) {
             case "bold": StyleConstants.setBold(set, !StyleConstants.isBold(set));
@@ -93,12 +92,11 @@ public class AIR_Format {
         StyledDocument doc = (StyledDocument) tp.getDocument();
         
         MutableAttributeSet set = new SimpleAttributeSet();
-        set.addAttributes(tp.getCharacterAttributes());
         StyleConstants.setFontSize(set, size);
         
         int start = tp.getSelectionStart();
         int end = tp.getSelectionEnd();
-
+        
         doc.setCharacterAttributes(start, end-start, set, false);
     }
     
@@ -107,8 +105,6 @@ public class AIR_Format {
         StyledDocument doc = (StyledDocument) tp.getDocument();
         
         MutableAttributeSet m = new SimpleAttributeSet();
-        
-        m.addAttributes(tp.getCharacterAttributes());
 
         StyleConstants.setForeground(m, color);
         int start = tp.getSelectionStart();
